@@ -1,0 +1,61 @@
+.paginationContainer {
+    width: 535px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.paginationArrow {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.paginationArrow:hover {
+    cursor: pointer;
+}
+
+.paginationPages {
+    display: flex;
+    margin: 0 10px;
+}
+
+.paginationPage {
+    width: 37px;
+    height: 27px;
+    margin: 0 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.dots {
+    width: 23px;
+    height: 27px;
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.paginationPage:hover {
+    cursor: pointer;
+}
+
+.paginationSelect {
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.selectMenu {
+    display: flex;
+    width: 50px;
+}
+
+.selectText {
+    white-space: nowrap;
+}
+
+.activePage {
+    color: royalblue;
+}

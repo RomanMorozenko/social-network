@@ -5,6 +5,7 @@ export const baseApi = createApi({
     tagTypes: ['Users'],
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0',
+        credentials: 'include',
     }),
     endpoints: () => ({}),
 })

@@ -4,18 +4,35 @@ export const UsersService = baseApi.injectEndpoints({
     endpoints: (builder) => {
         return {
             getUsers: builder.query<GetUsersResponseType, GetUsersArgsType>({
-                query: (body) => ({
-                    url: '/users',
+                query: ({ count = 10, page = 1, term = '', friend }) => ({
+                    url: `/users?count=${count}&page=${page}&term=${term}&friend=${friend}`,
                     method: 'GET',
-                    body,
                 }),
                 providesTags: ['Users'],
+            }),
+            followUser: builder.mutation<FollowUnfollowResponseType, number>({
+                query: (id) => ({
+                    url: `/follow/${id}`,
+                    method: 'POST',
+                }),
+                invalidatesTags: ['Users'],
+            }),
+            unfollowUser: builder.mutation<FollowUnfollowResponseType, number>({
+                query: (id) => ({
+                    url: `/follow/${id}`,
+                    method: 'DELETE',
+                }),
+                invalidatesTags: ['Users'],
             }),
         }
     },
 })
 
-export const { useGetUsersQuery } = UsersService
+export const {
+    useLazyGetUsersQuery,
+    useFollowUserMutation,
+    useUnfollowUserMutation,
+} = UsersService
 
 export type GetUsersArgsType = {
     count?: number
@@ -39,4 +56,10 @@ export type UserType = {
     }
     status: string | null
     followed: boolean
+}
+
+export type FollowUnfollowResponseType = {
+    resultCode: number
+    messages: string[]
+    data: object
 }
