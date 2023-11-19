@@ -7,14 +7,14 @@ import {
     ProfileOutlined,
     MessageOutlined,
 } from '@ant-design/icons'
-import { Layout as AntLayout, Menu, theme } from 'antd'
+import { Layout as AntLayout, Menu } from 'antd'
+import { useMeQuery } from '../services/auth/auth.service'
 
 export const Layout = () => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken()
-
     const navigate = useNavigate()
+    const { isLoading } = useMeQuery()
+
+    if (isLoading) return <div>Loading...</div>
 
     const handleNavMenuClick = (path: string) => {
         navigate(`/${path}`)
@@ -24,7 +24,7 @@ export const Layout = () => {
         <AntLayout>
             <Header style={{ display: 'flex', alignItems: 'center' }}></Header>
             <AntLayout>
-                <Sider width={200} style={{ background: colorBgContainer }}>
+                <Sider width={200} style={{ background: 'lightgrey' }}>
                     <Menu
                         mode="inline"
                         defaultSelectedKeys={['1']}

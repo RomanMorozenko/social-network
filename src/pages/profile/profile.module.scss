@@ -1,0 +1,50 @@
+.profileContainer {
+    min-height: 100vh;
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template:
+        'profile name'
+        'profile status'
+        'profile feed';
+    grid-template-rows: 50px 50px 1fr;
+    grid-template-columns: minmax(200px, 25%) 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+}
+
+.profile {
+    grid-area: profile;
+    background-color: aqua;
+}
+
+.userInfo {
+    width: 100%;
+}
+
+.userImage {
+    width: 90%;
+    height: 200px;
+    background-color: lightpink;
+}
+
+.lookingForAJob {
+}
+
+.contacts {
+}
+
+.userName {
+    grid-area: name;
+    background-color: lightcoral;
+}
+
+.userStatus {
+    grid-area: status;
+    background-color: lightyellow;
+}
+
+.feed {
+    grid-area: feed;
+    background-color: lime;
+}

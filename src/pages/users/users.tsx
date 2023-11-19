@@ -4,15 +4,18 @@ import {
     useLazyGetUsersQuery,
     useUnfollowUserMutation,
 } from '../../services/users/users.service'
-import { Button } from 'antd'
+import { Button, Checkbox } from 'antd'
 
 import s from './users.module.scss'
 import { Pagination } from './pagination/pagination'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export const Users = () => {
+    console.log('users rerendered')
+
     const [trigger, { data }] = useLazyGetUsersQuery({})
     const [inputValue, setInputValue] = useState('')
+    const [showFriends, setShowFriends] = useState(false)
 
     useEffect(() => {
         trigger({})
@@ -21,20 +24,30 @@ export const Users = () => {
     const users = data?.items
     const totalUsersCount = data?.totalCount
 
-    const handlePageClick = (count: number, page: number) => {
-        console.log('page click')
+    const handlePageClick = useCallback((count: number, page: number) => {
         trigger({ count, page })
-    }
+    }, [])
 
     const handleInputValueChange = (value: string) => {
         setInputValue(value)
-        trigger({ term: value })
+        trigger({ term: value, friend: showFriends })
+    }
+
+    const onChange = () => {
+        if (!showFriends) {
+            setShowFriends(true)
+            trigger({ friend: true })
+        } else {
+            setShowFriends(false)
+            trigger({})
+        }
     }
 
     return (
         <div className={s.usersContainer}>
             <div className={s.searchBar}>
                 <h2>Users</h2>
+                <Checkbox onChange={onChange}>Show friends only</Checkbox>
                 <Input value={inputValue} setValue={handleInputValueChange} />
             </div>
             <div className={s.pageControlPanel}>

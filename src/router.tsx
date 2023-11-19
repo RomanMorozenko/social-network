@@ -26,6 +26,12 @@ const privateRoutes: RouteObject[] = [
             {
                 path: '/profile',
                 element: <Profile />,
+                children: [
+                    {
+                        path: ':id',
+                        element: <Profile />,
+                    },
+                ],
             },
             {
                 path: '/users',
