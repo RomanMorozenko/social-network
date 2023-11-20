@@ -17,30 +17,80 @@ export const ProfileService = baseApi.injectEndpoints({
                 }),
                 providesTags: ['Profile'],
             }),
+            updateStatus: builder.mutation<UpdateProfileResponseType, string>({
+                query: (status) => ({
+                    url: '/profile/status',
+                    method: 'PUT',
+                    body: {
+                        status,
+                    },
+                }),
+                invalidatesTags: ['Profile'],
+            }),
+            updateProfile: builder.mutation<
+                UpdateProfileResponseType,
+                UpdateProfileRequestType
+            >({
+                query: (body) => ({
+                    url: '/profile',
+                    method: 'PUT',
+                    body: {
+                        userId: null,
+                        AboutMe: 'true',
+                        lookingForAJob: false,
+                        lookingForAJobDescription: 'true',
+                        fullName: '',
+                        contacts: {
+                            github: null,
+                            vk: null,
+                            facebook: null,
+                            instagram: null,
+                            twitter: null,
+                            website: null,
+                            youtube: null,
+                            mainLink: null,
+                        },
+                        ...body,
+                    },
+                }),
+                invalidatesTags: ['Profile'],
+            }),
         }
     },
 })
 
-export const { useLazyGetUserProfileQuery, useLazyGetUserStatusQuery } =
-    ProfileService
+export const {
+    useLazyGetUserProfileQuery,
+    useLazyGetUserStatusQuery,
+    useUpdateStatusMutation,
+    useUpdateProfileMutation,
+} = ProfileService
 
 export type UserProfileType = {
     userId: number
     lookingForAJob: boolean
-    lookingForAJobDescription: string
+    lookingForAJobDescription: string | null
     fullName: string
     contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
+        github: string | null
+        vk: string | null
+        facebook: string | null
+        instagram: string | null
+        twitter: string | null
+        website: string | null
+        youtube: string | null
+        mainLink: string | null
     }
     photos: {
-        small: string
-        large: string
+        small: string | null
+        large: string | null
     }
+}
+
+export type UpdateProfileRequestType = Partial<Omit<UserProfileType, 'photos'>>
+
+export type UpdateProfileResponseType = {
+    resultCode: number
+    messages: string[]
+    data: object
 }

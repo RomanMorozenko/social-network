@@ -8,14 +8,13 @@
         'profile status'
         'profile feed';
     grid-template-rows: 50px 50px 1fr;
-    grid-template-columns: minmax(200px, 25%) 1fr;
+    grid-template-columns: minmax(200px, 20%) 1fr;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
 }
 
 .profile {
     grid-area: profile;
-    background-color: aqua;
 }
 
 .userInfo {
@@ -23,7 +22,8 @@
 }
 
 .userImage {
-    width: 90%;
+    width: 100%;
+    margin: 0 auto;
     height: 200px;
     background-color: lightpink;
 }
@@ -31,20 +31,25 @@
 .lookingForAJob {
 }
 
-.contacts {
+.userNameContainer {
+    grid-area: name;
+    background-color: white;
 }
 
 .userName {
-    grid-area: name;
-    background-color: lightcoral;
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-xl);
+}
+
+.userStatusContainer {
+    grid-area: status;
+    background-color: white;
 }
 
 .userStatus {
-    grid-area: status;
-    background-color: lightyellow;
 }
 
 .feed {
     grid-area: feed;
-    background-color: lime;
+    background-color: white;
 }

@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, KeyboardEvent } from 'react'
 
 export type EditableSpanPropsType = {
     value: string
+    callback: (arg: string) => void
+    style?: string
 }
 
-export const EditableSpan = ({ value }: EditableSpanPropsType) => {
+export const EditableSpan = ({
+    value,
+    callback,
+    style,
+}: EditableSpanPropsType) => {
     const [editMode, setEditMode] = useState(false)
     const [currentValue, setCurrentValue] = useState('')
 
@@ -12,14 +18,26 @@ export const EditableSpan = ({ value }: EditableSpanPropsType) => {
         setCurrentValue(value)
     }, [value])
 
+    const handleStatusChange = () => {
+        setEditMode(false)
+        callback(currentValue)
+    }
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.code == 'Enter') {
+            handleStatusChange()
+        }
+    }
+
     return (
-        <div>
+        <div className={style}>
             {editMode ? (
                 <input
                     type="text"
                     value={currentValue}
                     onChange={(e) => setCurrentValue(e.target.value)}
-                    onBlur={() => setEditMode(false)}
+                    onBlur={handleStatusChange}
+                    onKeyDown={(e) => handleKeyDown(e)}
                     autoFocus
                 />
             ) : (

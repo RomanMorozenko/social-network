@@ -9,6 +9,7 @@ import { Layout } from './pages/layout'
 import { Profile } from './pages/profile'
 import { Users } from './pages/users'
 import { Messages } from './pages/messages'
+import { useMeQuery } from './services/auth/auth.service'
 
 const publicRoutes: RouteObject[] = [
     {
@@ -24,14 +25,16 @@ const privateRoutes: RouteObject[] = [
         element: <Layout />,
         children: [
             {
+                path: '/',
+                element: <Navigate to={'/profile'} />,
+            },
+            {
                 path: '/profile',
                 element: <Profile />,
-                children: [
-                    {
-                        path: ':id',
-                        element: <Profile />,
-                    },
-                ],
+            },
+            {
+                path: '/profile/:id',
+                element: <Profile />,
             },
             {
                 path: '/users',
@@ -54,7 +57,11 @@ const router = createBrowserRouter([
 ])
 
 function PrivateRoutes() {
-    const isAuthenticated = true
+    const { isLoading, isError } = useMeQuery()
+
+    const isAuthenticated = !isError
+
+    if (isLoading) return <div>Loading...</div>
 
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }
