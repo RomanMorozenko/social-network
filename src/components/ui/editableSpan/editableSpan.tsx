@@ -1,49 +1,71 @@
 import { useEffect, useState, KeyboardEvent } from 'react'
 
-export type EditableSpanPropsType = {
+type EditableSpanProps<C extends React.ElementType> = {
+    as?: C
     value: string
-    callback: (arg: string) => void
-    style?: string
-}
+    callback?: (arg: string) => void
+    outerEditMode?: boolean
+    outerModeControlValue?: () => void
+    href?: string
+    target?: string
+    // children: React.ReactNode
+} & React.ComponentPropsWithoutRef<C>
 
-export const EditableSpan = ({
+export const EditableSpan = <C extends React.ElementType = 'span'>({
+    as,
+    children,
     value,
+    outerEditMode,
     callback,
-    style,
-}: EditableSpanPropsType) => {
+    ...restProps
+}: EditableSpanProps<C>) => {
+    const Component = as || 'span'
+
+    console.log(value)
+
     const [editMode, setEditMode] = useState(false)
     const [currentValue, setCurrentValue] = useState('')
 
     useEffect(() => {
         setCurrentValue(value)
-    }, [value])
+        if (outerEditMode) {
+            setEditMode(outerEditMode)
+        }
+    }, [value, outerEditMode])
 
-    const handleStatusChange = () => {
+    const handleSubmitNewValue = () => {
         setEditMode(false)
-        callback(currentValue)
+        callback && callback(currentValue)
     }
 
-    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.code == 'Enter') {
-            handleStatusChange()
+            handleSubmitNewValue()
         }
     }
 
+    const onDoubleClick = () => {
+        if (as == 'a') return
+        setEditMode(true)
+    }
+
     return (
-        <div className={style}>
+        <div>
             {editMode ? (
                 <input
-                    type="text"
+                    {...(restProps as React.ComponentPropsWithoutRef<'input'>)}
                     value={currentValue}
                     onChange={(e) => setCurrentValue(e.target.value)}
-                    onBlur={handleStatusChange}
-                    onKeyDown={(e) => handleKeyDown(e)}
+                    onBlur={handleSubmitNewValue}
+                    onKeyDown={(e) => onKeyDown(e)}
                     autoFocus
-                />
+                >
+                    {children}
+                </input>
             ) : (
-                <span onDoubleClick={() => setEditMode(true)}>
-                    {currentValue}
-                </span>
+                <Component onDoubleClick={onDoubleClick} {...restProps}>
+                    {value}
+                </Component>
             )}
         </div>
     )

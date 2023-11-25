@@ -1,4 +1,9 @@
 import { baseApi } from '../base-api'
+import {
+    UpdateProfileRequestType,
+    UpdateProfileResponseType,
+    UserProfileType,
+} from './profileTypes'
 
 export const ProfileService = baseApi.injectEndpoints({
     endpoints: (builder) => {
@@ -34,24 +39,7 @@ export const ProfileService = baseApi.injectEndpoints({
                 query: (body) => ({
                     url: '/profile',
                     method: 'PUT',
-                    body: {
-                        userId: null,
-                        AboutMe: 'true',
-                        lookingForAJob: false,
-                        lookingForAJobDescription: 'true',
-                        fullName: '',
-                        contacts: {
-                            github: null,
-                            vk: null,
-                            facebook: null,
-                            instagram: null,
-                            twitter: null,
-                            website: null,
-                            youtube: null,
-                            mainLink: null,
-                        },
-                        ...body,
-                    },
+                    body,
                 }),
                 invalidatesTags: ['Profile'],
             }),
@@ -65,32 +53,3 @@ export const {
     useUpdateStatusMutation,
     useUpdateProfileMutation,
 } = ProfileService
-
-export type UserProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    fullName: string
-    contacts: {
-        github: string | null
-        vk: string | null
-        facebook: string | null
-        instagram: string | null
-        twitter: string | null
-        website: string | null
-        youtube: string | null
-        mainLink: string | null
-    }
-    photos: {
-        small: string | null
-        large: string | null
-    }
-}
-
-export type UpdateProfileRequestType = Partial<Omit<UserProfileType, 'photos'>>
-
-export type UpdateProfileResponseType = {
-    resultCode: number
-    messages: string[]
-    data: object
-}

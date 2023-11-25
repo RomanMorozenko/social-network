@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { baseApi } from './base-api'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { profileReducer } from './profile/profileSlice'
 
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
+        profileReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(baseApi.middleware),

@@ -5,23 +5,29 @@ import { useMeQuery } from '../../services/auth/auth.service'
 import s from './profile.module.scss'
 import { useParams } from 'react-router'
 import {
-    UserProfileType,
     useLazyGetUserProfileQuery,
     useLazyGetUserStatusQuery,
-    useUpdateProfileMutation,
     useUpdateStatusMutation,
 } from '../../services/profile/profile.service'
 import { defaultAva } from '../../assets/images/defaultAva'
 import { ContactsList } from './contactsList'
+import { UserProfileType } from '../../services/profile/profileTypes'
+import { AppDispatch, useAppSelector } from '../../services/store'
+import { updateProfileThunk } from '../../services/profile/profileSlice'
+import { useDispatch } from 'react-redux'
 
 export const Profile = () => {
     const [updateStatus] = useUpdateStatusMutation()
-    const [updateProfile] = useUpdateProfileMutation()
-    const [triggerUserProfile, { data: profileData }] =
-        useLazyGetUserProfileQuery()
+
+    const [triggerUserProfile] = useLazyGetUserProfileQuery()
+
     const [triggerUserStatus, { data: statusData }] =
         useLazyGetUserStatusQuery()
     const { data: meData } = useMeQuery()
+
+    const profileData = useAppSelector((state) => state.profileReducer)
+
+    const dispatch: AppDispatch = useDispatch()
 
     const ownerID = meData?.data.id
 
@@ -44,7 +50,7 @@ export const Profile = () => {
     }
 
     const handleUpdateProfile = (arg: string) => {
-        updateProfile({ fullName: arg, userId: ownerID })
+        dispatch(updateProfileThunk({ fullName: arg, userId: ownerID }))
     }
 
     if (!currentUserProfile) return
@@ -70,7 +76,8 @@ export const Profile = () => {
             <div className={s.userNameContainer}>
                 {ownerID === profileToShow ? (
                     <EditableSpan
-                        style={s.userName}
+                        as="span"
+                        // style={s.userName}
                         value={currentUserProfile?.fullName || ''}
                         callback={handleUpdateProfile}
                     />
@@ -81,6 +88,7 @@ export const Profile = () => {
             <div className={s.userStatusContainer}>
                 {ownerID === profileToShow ? (
                     <EditableSpan
+                        as="span"
                         value={statusData || ''}
                         callback={handleUpdateStatus}
                     />
