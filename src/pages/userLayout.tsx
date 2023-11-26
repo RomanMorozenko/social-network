@@ -10,7 +10,7 @@ import {
 import { Layout as AntLayout, Menu } from 'antd'
 import { useMeQuery } from '../services/auth/auth.service'
 
-export const Layout = () => {
+export const UserLayout = () => {
     const navigate = useNavigate()
     const { isLoading } = useMeQuery()
 
@@ -22,27 +22,24 @@ export const Layout = () => {
 
     return (
         <AntLayout>
-            <Header style={{ display: 'flex', alignItems: 'center' }}></Header>
-            <AntLayout>
-                <Sider width={200} style={{ background: 'lightgrey' }}>
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
-                        style={{ height: '100%', borderRight: 0 }}
-                        items={items2}
-                        onClick={({ keyPath }) =>
-                            handleNavMenuClick(keyPath[0].toLocaleLowerCase())
-                        }
-                    />
-                </Sider>
-                <Outlet />
-            </AntLayout>
+            <Sider width={200} style={{ background: 'lightgrey' }}>
+                <Menu
+                    mode="inline"
+                    defaultSelectedKeys={['1']}
+                    defaultOpenKeys={['sub1']}
+                    style={{ height: '100%', borderRight: 0 }}
+                    items={items2}
+                    onClick={({ keyPath }) =>
+                        handleNavMenuClick(keyPath[0].toLocaleLowerCase())
+                    }
+                />
+            </Sider>
+            <Outlet />
         </AntLayout>
     )
 }
 
-const { Header, Sider } = AntLayout
+const { Sider } = AntLayout
 
 const navItems = [
     { name: 'Profile', icon: <ProfileOutlined /> },

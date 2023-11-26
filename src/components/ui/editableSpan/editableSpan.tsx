@@ -21,7 +21,7 @@ export const EditableSpan = <C extends React.ElementType = 'span'>({
 }: EditableSpanProps<C>) => {
     const Component = as || 'span'
 
-    console.log(value)
+    // console.log(value)
 
     const [editMode, setEditMode] = useState(false)
     const [currentValue, setCurrentValue] = useState('')

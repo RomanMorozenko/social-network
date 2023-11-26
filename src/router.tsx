@@ -5,24 +5,28 @@ import {
     RouteObject,
     RouterProvider,
 } from 'react-router-dom'
-import { Layout } from './pages/layout'
+import { UserLayout } from './pages/userLayout'
 import { Profile } from './pages/profile'
 import { Users } from './pages/users'
 import { Messages } from './pages/messages'
 import { useMeQuery } from './services/auth/auth.service'
+import { Login } from './pages/login'
+
+import { Layout as AntLayout } from 'antd'
+
+const { Header } = AntLayout
 
 const publicRoutes: RouteObject[] = [
     {
-        path: '/',
-        element: <Layout />,
-        children: [],
+        path: '/login',
+        element: <Login />,
     },
 ]
 
 const privateRoutes: RouteObject[] = [
     {
         path: '/',
-        element: <Layout />,
+        element: <UserLayout />,
         children: [
             {
                 path: '/',
@@ -48,24 +52,33 @@ const privateRoutes: RouteObject[] = [
     },
 ]
 
-const router = createBrowserRouter([
-    {
-        element: <PrivateRoutes />,
-        children: privateRoutes,
-    },
-    ...publicRoutes,
-])
+export const Router = () => {
+    return (
+        <>
+            <AntLayout>
+                <Header
+                    style={{ display: 'flex', alignItems: 'center' }}
+                ></Header>
+                <RouterProvider router={router} />
+            </AntLayout>
+        </>
+    )
+}
 
-function PrivateRoutes() {
-    const { isLoading, isError } = useMeQuery()
+export const AppContainer = () => {
+    const { isLoading, data } = useMeQuery()
 
-    const isAuthenticated = !isError
+    const isAuthenticated = data?.resultCode == 1 ? false : true
 
     if (isLoading) return <div>Loading...</div>
-
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }
 
-export const Router = () => {
-    return <RouterProvider router={router} />
-}
+const router = createBrowserRouter([
+    {
+        element: <AppContainer />,
+        path: '/',
+        children: [...privateRoutes],
+    },
+    ...publicRoutes,
+])
