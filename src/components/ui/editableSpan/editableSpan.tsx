@@ -8,6 +8,7 @@ type EditableSpanProps<C extends React.ElementType> = {
     outerModeControlValue?: () => void
     href?: string
     target?: string
+    className?: string
     // children: React.ReactNode
 } & React.ComponentPropsWithoutRef<C>
 
@@ -17,6 +18,7 @@ export const EditableSpan = <C extends React.ElementType = 'span'>({
     value,
     outerEditMode,
     callback,
+    className,
     ...restProps
 }: EditableSpanProps<C>) => {
     const Component = as || 'span'
@@ -63,7 +65,11 @@ export const EditableSpan = <C extends React.ElementType = 'span'>({
                     {children}
                 </input>
             ) : (
-                <Component onDoubleClick={onDoubleClick} {...restProps}>
+                <Component
+                    onDoubleClick={onDoubleClick}
+                    {...restProps}
+                    className={className}
+                >
                     {value}
                 </Component>
             )}

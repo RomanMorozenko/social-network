@@ -65,19 +65,21 @@ export const Profile = () => {
                         className={s.userImage}
                     />
                     <div className={s.lookingForAJob}>
-                        <p>Is looking for a job?</p>
                         {currentUserProfile?.lookingForAJob
                             ? currentUserProfile?.lookingForAJobDescription
                             : "I'm currently not looking for a job"}
                     </div>
-                    <ContactsList contacts={currentUserProfile?.contacts} />
+                    <ContactsList
+                        className={s.contactsContainer}
+                        contacts={currentUserProfile?.contacts}
+                    />
                 </div>
             </div>
             <div className={s.userNameContainer}>
                 {ownerID === profileToShow ? (
                     <EditableSpan
                         as="span"
-                        // style={s.userName}
+                        className={s.userName}
                         value={currentUserProfile?.fullName || ''}
                         callback={handleUpdateProfile}
                     />
@@ -89,6 +91,7 @@ export const Profile = () => {
                 {ownerID === profileToShow ? (
                     <EditableSpan
                         as="span"
+                        className={s.userStatus}
                         value={statusData || ''}
                         callback={handleUpdateStatus}
                     />

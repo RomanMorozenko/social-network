@@ -17,7 +17,9 @@ import { AppDispatch } from '../../../services/store'
 import { useDispatch } from 'react-redux'
 import { updateProfileThunk } from '../../../services/profile/profileSlice'
 
-type ContactsListPropsType = Pick<UserProfileType, 'contacts'>
+type ContactsListPropsType = Pick<UserProfileType, 'contacts'> & {
+    className?: string
+}
 
 const Icons = {
     github: <GithubOutlined />,
@@ -30,9 +32,12 @@ const Icons = {
     mainLink: null,
 }
 
-export const ContactsList = ({ contacts }: ContactsListPropsType) => {
+export const ContactsList = ({
+    contacts,
+    className,
+}: ContactsListPropsType) => {
     return (
-        <div className={s.contacts}>
+        <div className={s.contacts + ' ' + className}>
             {Object.entries(contacts).map(([key, value]) => {
                 return (
                     <Contact
@@ -80,7 +85,7 @@ const Contact = ({ name, value }: ContactPropsType) => {
 
     return (
         <div className={s.contact}>
-            <span className={s.icon}>{Icons[name] ? Icons[name] : name}</span>:{' '}
+            <span className={s.icon}>{Icons[name] ? Icons[name] : name}</span>
             <EditableSpan
                 as="a"
                 value={value}

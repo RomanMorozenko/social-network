@@ -7,7 +7,7 @@
         'profile name'
         'profile status'
         'profile feed';
-    grid-template-rows: 50px 50px 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: minmax(200px, 20%) 1fr;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
@@ -29,11 +29,27 @@
 }
 
 .lookingForAJob {
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-s);
+}
+
+.contactsContainer {
+    margin-top: 5px;
+}
+
+.userNameContainer,
+.userStatusContainer {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .userNameContainer {
     grid-area: name;
-    background-color: white;
 }
 
 .userName {
@@ -43,13 +59,15 @@
 
 .userStatusContainer {
     grid-area: status;
-    background-color: white;
 }
 
 .userStatus {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-m);
 }
 
 .feed {
     grid-area: feed;
     background-color: white;
+    border-radius: 5px;
 }

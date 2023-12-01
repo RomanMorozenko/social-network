@@ -65,7 +65,7 @@ export const LoginForm = () => {
     )
 
     const handleSubmitForm = (data: FormValues) => {
-        console.log(data)
+        logIn(data)
     }
 
     return (
@@ -92,7 +92,9 @@ export const LoginForm = () => {
             >
                 <Checkbox type="checkbox" />
             </FormItem>
-            <Button type="primary">Login</Button>
+            <Button type="primary" htmlType="submit">
+                Login
+            </Button>
         </form>
     )
 }

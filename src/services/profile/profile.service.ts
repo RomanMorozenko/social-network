@@ -43,11 +43,18 @@ export const ProfileService = baseApi.injectEndpoints({
                 }),
                 invalidatesTags: ['Profile'],
             }),
+            getOwnerProfile: builder.query<UserProfileType, string>({
+                query: (userId) => ({
+                    url: `/profile/${userId}`,
+                    method: 'GET',
+                }),
+            }),
         }
     },
 })
 
 export const {
+    useLazyGetOwnerProfileQuery,
     useLazyGetUserProfileQuery,
     useLazyGetUserStatusQuery,
     useUpdateStatusMutation,

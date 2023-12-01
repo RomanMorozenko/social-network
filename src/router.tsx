@@ -11,10 +11,7 @@ import { Users } from './pages/users'
 import { Messages } from './pages/messages'
 import { useMeQuery } from './services/auth/auth.service'
 import { Login } from './pages/login'
-
-import { Layout as AntLayout } from 'antd'
-
-const { Header } = AntLayout
+import { Header } from './components/ui/header'
 
 const publicRoutes: RouteObject[] = [
     {
@@ -53,14 +50,16 @@ const privateRoutes: RouteObject[] = [
 ]
 
 export const Router = () => {
+    const { isLoading, data } = useMeQuery()
+
+    const isAuth = data?.resultCode === 0
+
+    if (isLoading) return <div>Loaaaaaaading...</div>
+
     return (
         <>
-            <AntLayout>
-                <Header
-                    style={{ display: 'flex', alignItems: 'center' }}
-                ></Header>
-                <RouterProvider router={router} />
-            </AntLayout>
+            <Header isAuth={isAuth} />
+            <RouterProvider router={router} />
         </>
     )
 }
