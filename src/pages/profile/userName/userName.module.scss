@@ -1,0 +1,11 @@
+.userNameContainer {
+    grid-area: name;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.userName {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-xl);
+}

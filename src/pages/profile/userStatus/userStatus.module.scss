@@ -1,0 +1,11 @@
+.userStatusContainer {
+    grid-area: status;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.userStatus {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-m);
+}

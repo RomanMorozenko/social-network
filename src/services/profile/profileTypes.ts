@@ -27,3 +27,9 @@ export type UpdateProfileResponseType = {
     messages: string[]
     data: object
 }
+
+export type UpdatePhotoResponseType = {
+    resultCode: number
+    messages: []
+    data: object
+}

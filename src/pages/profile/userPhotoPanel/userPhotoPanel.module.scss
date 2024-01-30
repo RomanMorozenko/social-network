@@ -1,0 +1,31 @@
+.userPhotoContainer {
+    position: relative;
+}
+
+.userImage {
+    width: 100%;
+    margin: 0 auto;
+    height: 200px;
+}
+
+.photoEditIcon {
+    background-color: grey;
+    color: white;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    position: relative;
+    left: 93%;
+    bottom: 20px;
+}
+
+.photoEditIcon:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.photoInput {
+    display: none;
+}

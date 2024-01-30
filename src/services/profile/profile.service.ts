@@ -1,5 +1,6 @@
 import { baseApi } from '../base-api'
 import {
+    UpdatePhotoResponseType,
     UpdateProfileRequestType,
     UpdateProfileResponseType,
     UserProfileType,
@@ -48,12 +49,22 @@ export const ProfileService = baseApi.injectEndpoints({
                     url: `/profile/${userId}`,
                     method: 'GET',
                 }),
+                providesTags: ['Profile'],
+            }),
+            updatePhoto: builder.mutation<UpdatePhotoResponseType, FormData>({
+                query: (body) => ({
+                    url: '/profile/photo',
+                    method: 'PUT',
+                    body,
+                }),
+                invalidatesTags: ['Profile'],
             }),
         }
     },
 })
 
 export const {
+    useUpdatePhotoMutation,
     useLazyGetOwnerProfileQuery,
     useLazyGetUserProfileQuery,
     useLazyGetUserStatusQuery,

@@ -17,7 +17,7 @@ type HeaderPropsType = {
 export const Header = ({ isAuth }: HeaderPropsType) => {
     return (
         <AntHeader style={{ display: 'flex', alignItems: 'center' }}>
-            {isAuth ? <UserPanel /> : <></>}
+            {isAuth && <UserPanel />}
         </AntHeader>
     )
 }
@@ -40,7 +40,9 @@ const UserPanel = () => {
         <div className={s.userPanel}>
             <img className={s.userPhoto} src={userImage} alt="user photo" />
             <p className={s.userName}>{userName}</p>
-            <button onClick={() => logout()}>logout</button>
+            <button onClick={() => logout()} aria-label="logout">
+                logout
+            </button>
         </div>
     )
 }

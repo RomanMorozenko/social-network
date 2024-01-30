@@ -1,5 +1,3 @@
-import s from './layout.module.scss'
-
 import { Outlet, useNavigate } from 'react-router-dom'
 
 import {
@@ -28,7 +26,7 @@ export const UserLayout = () => {
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
-                    items={items2}
+                    items={menuItems}
                     onClick={({ keyPath }) =>
                         handleNavMenuClick(keyPath[0].toLocaleLowerCase())
                     }
@@ -47,7 +45,7 @@ const navItems = [
     { name: 'Messages', icon: <MessageOutlined /> },
 ]
 
-const items2 = navItems.map((item) => {
+const menuItems = navItems.map((item) => {
     return {
         key: item.name,
         icon: item.icon,

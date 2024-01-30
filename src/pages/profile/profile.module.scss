@@ -21,13 +21,6 @@
     width: 100%;
 }
 
-.userImage {
-    width: 100%;
-    margin: 0 auto;
-    height: 200px;
-    background-color: lightpink;
-}
-
 .lookingForAJob {
     margin-top: 5px;
     padding: 5px;
@@ -39,31 +32,6 @@
 
 .contactsContainer {
     margin-top: 5px;
-}
-
-.userNameContainer,
-.userStatusContainer {
-    background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.userNameContainer {
-    grid-area: name;
-}
-
-.userName {
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-xl);
-}
-
-.userStatusContainer {
-    grid-area: status;
-}
-
-.userStatus {
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-m);
 }
 
 .feed {
