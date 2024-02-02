@@ -1,36 +1,55 @@
 import {
     UserType,
-    useFollowUserMutation,
     useLazyGetUsersQuery,
-    useUnfollowUserMutation,
 } from '../../services/users/users.service'
-import { Button, Checkbox } from 'antd'
+import { Checkbox } from 'antd'
 
 import s from './users.module.scss'
 import { Pagination } from './pagination/pagination'
 import { useCallback, useEffect, useState } from 'react'
+import { UserCard } from './userCard'
 
 export const Users = () => {
-    console.log('users rerendered')
-
+    console.log('Users rendered ')
     const [trigger, { data }] = useLazyGetUsersQuery({})
     const [inputValue, setInputValue] = useState('')
     const [showFriends, setShowFriends] = useState(false)
+    const [debounceTimer, setDebounceTimer] = useState<number | null>(null)
+    console.log(data)
 
     useEffect(() => {
+        console.log(useEffect)
         trigger({})
     }, [trigger])
+
+    useEffect(() => {
+        return () => {
+            if (debounceTimer) {
+                clearTimeout(debounceTimer)
+            }
+        }
+    }, [debounceTimer])
 
     const users = data?.items
     const totalUsersCount = data?.totalCount
 
-    const handlePageClick = useCallback((count: number, page: number) => {
-        trigger({ count, page })
-    }, [])
+    const handlePageClick = useCallback(
+        (count: number, page: number) => {
+            trigger({ count, page })
+        },
+        [trigger]
+    )
 
     const handleInputValueChange = (value: string) => {
         setInputValue(value)
-        trigger({ term: value, friend: showFriends })
+        if (debounceTimer) {
+            clearTimeout(debounceTimer)
+        }
+        const newTimer = setTimeout(() => {
+            trigger({ term: value, friend: showFriends })
+        }, 300)
+
+        setDebounceTimer(newTimer)
     }
 
     const onChange = () => {
@@ -58,57 +77,20 @@ export const Users = () => {
                 <div className={s.dropDown}></div>
             </div>
             <div className={s.usersDisplay}>
-                {users?.map((user: UserType) => (
-                    <UserCard
-                        key={user.id}
-                        avatar={user.photos.small || ''}
-                        name={user.name}
-                        followed={user.followed}
-                        id={user.id}
-                    />
-                ))}
-            </div>
-        </div>
-    )
-}
-
-type UserCardPropsType = {
-    avatar: string
-    name: string
-    followed: boolean
-    id: number
-}
-
-const defaultAvatar = '../src/assets/images/anonym.jpeg'
-
-const UserCard = ({ avatar, name, followed, id }: UserCardPropsType) => {
-    const [followUser] = useFollowUserMutation()
-    const [unfollowUser] = useUnfollowUserMutation()
-
-    const handleFollowUnfollow = (followed: boolean, id: number) => {
-        if (followed) {
-            unfollowUser(id)
-        } else {
-            followUser(id)
-        }
-    }
-
-    return (
-        <div className={s.userCard}>
-            <img
-                src={avatar || defaultAvatar}
-                alt=""
-                className={s.userAvatar}
-            />
-            <div className={s.userName}>{name}</div>
-            <div className={s.buttonContainer}>
-                <Button
-                    type="primary"
-                    block
-                    onClick={() => handleFollowUnfollow(followed, id)}
-                >
-                    {followed ? 'Unfollow' : 'Follow'}
-                </Button>
+                {users?.map(
+                    (user: UserType) => (
+                        console.log('user rendered'),
+                        (
+                            <UserCard
+                                key={user.id}
+                                avatar={user.photos.small || ''}
+                                name={user.name}
+                                followed={user.followed}
+                                id={user.id}
+                            />
+                        )
+                    )
+                )}
             </div>
         </div>
     )
@@ -120,6 +102,7 @@ type InputPropsType = {
 }
 
 const Input = ({ value, setValue }: InputPropsType) => {
+    console.log('Input rendered')
     return (
         <input
             className={s.searchInput}

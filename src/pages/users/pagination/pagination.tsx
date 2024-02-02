@@ -14,7 +14,7 @@ type PaginationProps = {
 
 export const Pagination = memo(
     ({ onClick, totalUsersCount, className }: PaginationProps) => {
-        console.log('pagination rerendered')
+        console.log('pagination rendered')
 
         const [activePage, setActivePage] = useState<number>(1)
         const [pageSize, setPageSize] = useState<number>(10)

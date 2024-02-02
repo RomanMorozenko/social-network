@@ -93,6 +93,7 @@ const Contact = ({ name, value }: ContactPropsType) => {
                 outerEditMode={editMode}
                 href={`https://${value}`}
                 target="_blank"
+                rel="noreferrer noopener"
             />
             <EditOutlined onClick={() => setEditMode(!editMode)} />
         </div>
