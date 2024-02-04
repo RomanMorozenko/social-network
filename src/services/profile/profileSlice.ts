@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { UserProfileType } from './profileTypes'
+import { UpdateProfileRequestType, UserProfileType } from './profileTypes'
 import { ProfileService } from './profile.service'
 import { AppDispatch, RootState } from '../store'
 
@@ -40,16 +40,32 @@ const slice = createSlice({
 
 export const profileReducer = slice.reducer
 
-export const updateProfileThunk = (body: object) => {
+type TestType = {
+    [key: string]: string
+}
+
+export const updateProfileThunk = (
+    body: TestType | Partial<UpdateProfileRequestType>
+) => {
     return (dispatch: AppDispatch, getState: () => RootState) => {
         const stateFromSlice = getState().profileReducer
 
-        console.log(stateFromSlice)
+        let newContactsData = {}
+
+        if ('contacts' in body) {
+            newContactsData = body.contacts ?? {}
+        } else {
+            newContactsData = body
+        }
 
         dispatch(
             ProfileService.endpoints.updateProfile.initiate({
                 ...stateFromSlice,
-                ...body,
+                fullName: body.fullName || stateFromSlice.fullName,
+                contacts: {
+                    ...stateFromSlice.contacts,
+                    ...newContactsData,
+                },
             })
         )
     }

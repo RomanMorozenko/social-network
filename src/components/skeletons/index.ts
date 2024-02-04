@@ -1,0 +1,1 @@
+export { SkeletonUserPage } from './skeletonUserPage'

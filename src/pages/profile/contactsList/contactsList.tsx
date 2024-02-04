@@ -76,8 +76,7 @@ const Contact = ({ name, value }: ContactPropsType) => {
         if (!ownerID) return
         dispatch(
             updateProfileThunk({
-                contacts: { [name]: value },
-                userId: ownerID,
+                [name]: value,
             })
         )
         setEditMode(false)

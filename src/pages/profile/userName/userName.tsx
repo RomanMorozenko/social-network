@@ -18,7 +18,11 @@ export const UserName = ({
 }: UserName) => {
     const dispatch: AppDispatch = useDispatch()
     const handleUpdateProfile = (arg: string) => {
-        dispatch(updateProfileThunk({ fullName: arg, userId: ownerID }))
+        dispatch(
+            updateProfileThunk({
+                fullName: arg,
+            })
+        )
     }
     return (
         <div className={s.userNameContainer}>
