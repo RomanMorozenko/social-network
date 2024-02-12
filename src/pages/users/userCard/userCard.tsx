@@ -4,6 +4,7 @@ import {
     useUnfollowUserMutation,
 } from '../../../services/users/users.service'
 import s from './userCard.module.scss'
+import { Link } from 'react-router-dom'
 
 type UserCardPropsType = {
     avatar: string
@@ -28,12 +29,16 @@ export const UserCard = ({ avatar, name, followed, id }: UserCardPropsType) => {
 
     return (
         <div className={s.userCard}>
-            <img
-                src={avatar || defaultAvatar}
-                alt=""
-                className={s.userAvatar}
-            />
-            <div className={s.userName}>{name}</div>
+            <Link className={s.avatarContainer} to={`/profile/${id}`}>
+                <img
+                    src={avatar || defaultAvatar}
+                    alt=""
+                    className={s.userAvatar}
+                />
+            </Link>
+            <Link className={s.nameConrainer} to={`/profile/${id}`}>
+                <div className={s.name}>{name}</div>
+            </Link>
             <div className={s.buttonContainer}>
                 <Button
                     type="primary"

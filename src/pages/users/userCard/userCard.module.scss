@@ -14,15 +14,43 @@
     -moz-box-shadow: 0px 1px 16px -1px rgba(87, 80, 80, 0.75);
 }
 
+.avatarContainer {
+    all: unset;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    border-radius: 100%;
+}
+
+.avatarContainer:hover {
+    cursor: pointer;
+}
+
 .userAvatar {
     width: 80%;
     object-fit: contain;
     border-radius: 100%;
 }
 
-.userName {
+.nameConrainer {
+    all: unset;
+    display: block;
+    margin-top: 5px;
+}
+
+.nameConrainer:hover {
+    cursor: pointer;
+    color: grey;
+}
+
+.name {
+    font-weight: 500;
+    text-align: center;
 }
 
 .buttonContainer {
+    margin-top: 10px;
     width: 90%;
 }

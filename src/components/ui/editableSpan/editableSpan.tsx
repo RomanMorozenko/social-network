@@ -1,4 +1,5 @@
 import { useEffect, useState, KeyboardEvent } from 'react'
+import { EditOutlined } from '@ant-design/icons'
 
 type EditableSpanProps<C extends React.ElementType> = {
     as?: C
@@ -9,7 +10,7 @@ type EditableSpanProps<C extends React.ElementType> = {
     href?: string
     target?: string
     className?: string
-    // children: React.ReactNode
+    showEditIcon?: boolean
 } & React.ComponentPropsWithoutRef<C>
 
 export const EditableSpan = <C extends React.ElementType = 'span'>({
@@ -19,11 +20,10 @@ export const EditableSpan = <C extends React.ElementType = 'span'>({
     outerEditMode,
     callback,
     className,
+    showEditIcon,
     ...restProps
 }: EditableSpanProps<C>) => {
     const Component = as || 'span'
-
-    // console.log(value)
 
     const [editMode, setEditMode] = useState(false)
     const [currentValue, setCurrentValue] = useState('')
@@ -71,6 +71,12 @@ export const EditableSpan = <C extends React.ElementType = 'span'>({
                     className={className}
                 >
                     {value}
+                    {showEditIcon && (
+                        <EditOutlined
+                            style={{ marginLeft: '5px' }}
+                            onClick={onDoubleClick}
+                        />
+                    )}
                 </Component>
             )}
         </div>

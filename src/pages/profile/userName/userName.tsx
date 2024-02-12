@@ -32,6 +32,7 @@ export const UserName = ({
                     className={s.userName}
                     value={currentUserProfile?.fullName || ''}
                     callback={handleUpdateProfile}
+                    showEditIcon={true}
                 />
             ) : (
                 <div>{currentUserProfile?.fullName}</div>

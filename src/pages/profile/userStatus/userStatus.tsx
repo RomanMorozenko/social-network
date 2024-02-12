@@ -25,6 +25,7 @@ export const UserStatus = ({
                     className={s.userStatus}
                     value={statusData || ''}
                     callback={handleUpdateStatus}
+                    showEditIcon={true}
                 />
             ) : (
                 <div>{statusData}</div>

@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { FormItem } from 'react-hook-form-antd'
+import { Toast } from '../../components/ui/toast'
 
 const loginSchema = z.object({
     email: z.string().trim().email('Please enter a valid email'),
@@ -35,6 +36,7 @@ export const Login = () => {
         <div className={s.loginContainer}>
             <img src={loginPageImage} className={s.loginPageImage} />
             <LoginForm />
+            <Toast />
         </div>
     )
 }

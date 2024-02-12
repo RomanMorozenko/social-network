@@ -1,1 +1,0 @@
-export { SkeletonUserPage } from './skeletonUserPage'

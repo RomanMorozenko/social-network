@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons'
 import { Layout as AntLayout, Menu } from 'antd'
 import { useMeQuery } from '../services/auth/auth.service'
+import { Toast } from '../components/ui/toast'
 
 export const UserLayout = () => {
     const navigate = useNavigate()
@@ -33,6 +34,7 @@ export const UserLayout = () => {
                 />
             </Sider>
             <Outlet />
+            <Toast />
         </AntLayout>
     )
 }

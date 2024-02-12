@@ -96,12 +96,12 @@ export const Users = () => {
     )
 }
 
-type InputPropsType = {
+type Input = {
     value: string
     setValue: (value: string) => void
 }
 
-const Input = ({ value, setValue }: InputPropsType) => {
+const Input = ({ value, setValue }: Input) => {
     console.log('Input rendered')
     return (
         <input

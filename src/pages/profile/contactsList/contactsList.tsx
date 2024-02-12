@@ -29,7 +29,6 @@ const Icons = {
     twitter: <TwitterOutlined />,
     website: <CodeOutlined />,
     youtube: <YoutubeOutlined />,
-    mainLink: null,
 }
 
 export const ContactsList = ({
@@ -39,6 +38,7 @@ export const ContactsList = ({
     return (
         <div className={s.contacts + ' ' + className}>
             {Object.entries(contacts).map(([key, value]) => {
+                if (key.toLocaleLowerCase() === 'mainlink') return
                 return (
                     <Contact
                         key={key}
@@ -60,7 +60,6 @@ type ContactPropsType = {
         | 'twitter'
         | 'website'
         | 'youtube'
-        | 'mainLink'
     value: string
 }
 
