@@ -45,7 +45,7 @@ export type LoginArgsType = {
     email: string
     password: string
     rememberMe?: boolean
-    captcha?: boolean
+    captcha?: string
 }
 
 export type LoginResponseType = {

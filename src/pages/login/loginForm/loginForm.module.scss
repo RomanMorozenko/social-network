@@ -1,0 +1,15 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+.formItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    margin-bottom: 5px;
+}

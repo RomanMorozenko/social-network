@@ -69,6 +69,8 @@ export const AppContainer = () => {
 
     const isAuthenticated = data?.resultCode == 1 ? false : true
 
+    console.log('isAuthenticated', isAuthenticated)
+
     if (isLoading) return <div>Loading...</div>
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }
