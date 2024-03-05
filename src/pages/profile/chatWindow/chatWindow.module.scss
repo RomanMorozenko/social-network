@@ -1,0 +1,14 @@
+.chatContainer {
+    grid-area: chat;
+    background-color: white;
+    border: 5px solid rgba(0, 0, 0, 0.88);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.inputForm {
+    display: flex;
+    height: 100px;
+    position: sticky;
+    top: 550px;
+}

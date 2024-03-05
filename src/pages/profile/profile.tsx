@@ -12,6 +12,7 @@ import { useAppSelector } from '../../services/store'
 import { UserName } from './userName'
 import { UserStatus } from './userStatus'
 import { UserPhotoPanel } from './userPhotoPanel'
+import { ChatWindow } from './chatWindow'
 
 export const Profile = () => {
     const [triggerUserProfile] = useLazyGetUserProfileQuery()
@@ -62,7 +63,7 @@ export const Profile = () => {
                 statusData={statusData}
                 profileToShow={profileToShow}
             />
-            <div className={s.feed}></div>
+            <ChatWindow />
         </div>
     )
 }
