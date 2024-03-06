@@ -28,11 +28,15 @@ export const ChatWindow = () => {
     return (
         <div className={s.chatContainer}>
             <div className={s.messages}>
-                {messages.map((msg, index) => (
-                    <div key={index} className={s.message}>
-                        {msg.message}{' '}
-                    </div>
-                ))}
+                {messages.length === 0 ? (
+                    <div>No messages yet</div>
+                ) : (
+                    messages.map((msg, index) => (
+                        <div key={index} className={s.message}>
+                            {msg.message}{' '}
+                        </div>
+                    ))
+                )}
             </div>
             <div className={s.inputForm}>
                 <TextArea

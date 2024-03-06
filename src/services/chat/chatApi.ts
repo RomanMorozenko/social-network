@@ -23,17 +23,23 @@ export const chatApi = createApi({
                 const ws = new WebSocket(SOCKET_URL)
 
                 return new Promise((resolve, reject) => {
-                    ws.addEventListener('open', () => {
-                        console.log('open')
-                    })
-
-                    ws.addEventListener('message', (event) => {
+                    const handleMessageEvent = (event: MessageEvent) => {
                         const data = JSON.parse(event.data)
                         resolve({ data })
-                    })
+                    }
 
-                    ws.addEventListener('error', (error) => {
-                        reject(error)
+                    const handleRejectError =
+                        () => (error: Event | ErrorEvent) => {
+                            reject(error)
+                        }
+
+                    ws.addEventListener('message', handleMessageEvent)
+
+                    ws.addEventListener('error', handleRejectError)
+
+                    ws.addEventListener('close', () => {
+                        ws.removeEventListener('message', handleMessageEvent)
+                        ws.removeEventListener('error', handleRejectError)
                     })
                 })
             },
@@ -41,11 +47,17 @@ export const chatApi = createApi({
                 const connectWebSocket = async () => {
                     ws = new WebSocket(SOCKET_URL)
 
-                    ws.addEventListener('message', (event) => {
+                    const handleMessageEvent = (event: MessageEvent) => {
                         const data = JSON.parse(event.data)
                         updateCachedData((draft) => {
                             draft.push(data)
                         })
+                    }
+
+                    ws.addEventListener('message', handleMessageEvent)
+
+                    ws.addEventListener('close', () => {
+                        ws?.removeEventListener('message', handleMessageEvent)
                     })
                 }
                 connectWebSocket()

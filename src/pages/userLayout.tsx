@@ -44,7 +44,7 @@ const { Sider } = AntLayout
 const navItems = [
     { name: 'Profile', icon: <ProfileOutlined /> },
     { name: 'Users', icon: <UserOutlined /> },
-    { name: 'Messages', icon: <MessageOutlined /> },
+    { name: 'Chat', icon: <MessageOutlined /> },
 ]
 
 const menuItems = navItems.map((item) => {

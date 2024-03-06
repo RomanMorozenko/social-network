@@ -1,9 +1,11 @@
 .chatContainer {
     grid-area: chat;
     background-color: white;
-    border: 5px solid rgba(0, 0, 0, 0.88);
-    border-radius: 5px;
+    // border: 5px solid rgba(0, 0, 0, 0.88);
+    // border-radius: 5px;
     padding: 15px;
+    width: 100%;
+    height: calc(100vh - 60px);
 }
 
 .inputForm {

@@ -8,7 +8,7 @@ import {
 import { UserLayout } from './pages/userLayout'
 import { Profile } from './pages/profile'
 import { Users } from './pages/users'
-import { Messages } from './pages/messages'
+import { Chat } from './pages/chat'
 import { useMeQuery } from './services/auth/auth.service'
 import { Login } from './pages/login'
 import { Header } from './components/ui/header'
@@ -42,8 +42,8 @@ const privateRoutes: RouteObject[] = [
                 element: <Users />,
             },
             {
-                path: '/messages',
-                element: <Messages />,
+                path: '/chat',
+                element: <Chat />,
             },
         ],
     },
