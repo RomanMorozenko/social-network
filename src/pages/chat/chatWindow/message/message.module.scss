@@ -1,0 +1,35 @@
+.message {
+    margin-top: 10px;
+    display: grid;
+    grid-template-areas:
+        'ava name'
+        'ava message';
+    grid-template-columns: 1fr 10fr;
+    grid-template-rows: auto auto;
+}
+
+.messageUserAvatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    grid-area: ava;
+}
+
+.messageUserName {
+    grid-area: name;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.messageBody {
+    grid-area: message;
+}
+
+.messageBody::selection,
+.messageUserName::selection {
+    background-color: #001529;
+    color: white;
+}

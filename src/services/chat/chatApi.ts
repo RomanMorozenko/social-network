@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export type Message = {
+export type ChatMessage = {
     message: string
     photo: string | null
     userId: number
@@ -49,8 +49,9 @@ export const chatApi = createApi({
 
                     const handleMessageEvent = (event: MessageEvent) => {
                         const data = JSON.parse(event.data)
+                        console.log(data)
                         updateCachedData((draft) => {
-                            draft.push(data)
+                            draft.push(data[0])
                         })
                     }
 
