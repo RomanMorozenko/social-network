@@ -23,6 +23,7 @@ export const Profile = () => {
     const profileToShow = useParams().id || ownerID
     const [currentUserProfile, setCurrentUserProfile] =
         useState<UserProfileType>()
+    const isOwner = profileToShow === ownerID
 
     useEffect(() => {
         profileToShow && triggerUserProfile(profileToShow.toString())
@@ -39,6 +40,7 @@ export const Profile = () => {
             <div className={s.profile}>
                 <div className={s.userInfo}>
                     <UserPhotoPanel
+                        isOwner={isOwner}
                         photo={currentUserProfile.photos.large || ''}
                     />
                     <div className={s.lookingForAJob}>
@@ -47,6 +49,7 @@ export const Profile = () => {
                             : "I'm currently not looking for a job"}
                     </div>
                     <ContactsList
+                        isOwner={isOwner}
                         className={s.contactsContainer}
                         contacts={currentUserProfile?.contacts}
                     />

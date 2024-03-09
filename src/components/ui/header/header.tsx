@@ -6,7 +6,7 @@ import {
 import s from './header.module.scss'
 import { defaultAva } from '../../../assets/images/defaultAva'
 import { useLazyGetOwnerProfileQuery } from '../../../services/profile/profile.service'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const { Header: AntHeader } = AntLayout
 
@@ -27,6 +27,7 @@ const UserPanel = () => {
     const { data } = useMeQuery()
     const userId = data?.data.id
     const [trigger, { data: profileData }] = useLazyGetOwnerProfileQuery()
+    const [isDropDownActive, setIsDropDownActive] = useState(true)
 
     useEffect(() => {
         userId && trigger(userId.toString())
@@ -36,13 +37,30 @@ const UserPanel = () => {
     const userImage =
         profileData?.photos.large || profileData?.photos.small || defaultAva
 
+    const dropDownClass = !isDropDownActive ? s.off : ''
+
+    const handleDropDownToggle = () => {
+        setIsDropDownActive(!isDropDownActive)
+    }
+
     return (
         <div className={s.userPanel}>
-            <img className={s.userPhoto} src={userImage} alt="user photo" />
+            <img
+                onClick={handleDropDownToggle}
+                className={s.userPhoto}
+                src={userImage}
+                alt="user photo"
+            />
             <p className={s.userName}>{userName}</p>
-            <button onClick={() => logout()} aria-label="logout">
-                logout
-            </button>
+            <div className={s.dropDown + ' ' + dropDownClass}>
+                <button
+                    className={s.logout}
+                    onClick={() => logout()}
+                    aria-label="logout"
+                >
+                    logout
+                </button>
+            </div>
         </div>
     )
 }

@@ -6,9 +6,10 @@ import s from './userPhotoPanel.module.scss'
 
 type UserPhotoPanel = {
     photo: string
+    isOwner: boolean
 }
 
-export const UserPhotoPanel = ({ photo }: UserPhotoPanel) => {
+export const UserPhotoPanel = ({ photo, isOwner }: UserPhotoPanel) => {
     const [updatePhoto] = useUpdatePhotoMutation()
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -45,6 +46,7 @@ export const UserPhotoPanel = ({ photo }: UserPhotoPanel) => {
             <CameraOutlined
                 onClick={handleUpdateImageClick}
                 className={s.photoEditIcon}
+                style={{ visibility: isOwner ? 'visible' : 'hidden' }}
             />
         </div>
     )

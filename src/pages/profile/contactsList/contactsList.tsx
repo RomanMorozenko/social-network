@@ -19,6 +19,7 @@ import { updateProfileThunk } from '../../../services/profile/profileSlice'
 
 type ContactsListPropsType = Pick<UserProfileType, 'contacts'> & {
     className?: string
+    isOwner: boolean
 }
 
 const Icons = {
@@ -34,6 +35,7 @@ const Icons = {
 export const ContactsList = ({
     contacts,
     className,
+    isOwner,
 }: ContactsListPropsType) => {
     return (
         <div className={s.contacts + ' ' + className}>
@@ -41,6 +43,7 @@ export const ContactsList = ({
                 if (key.toLocaleLowerCase() === 'mainlink') return
                 return (
                     <Contact
+                        isOwner={isOwner}
                         key={key}
                         name={key as ContactPropsType['name']}
                         value={value || ''}
@@ -61,9 +64,10 @@ type ContactPropsType = {
         | 'website'
         | 'youtube'
     value: string
+    isOwner: boolean
 }
 
-const Contact = ({ name, value }: ContactPropsType) => {
+const Contact = ({ name, value, isOwner }: ContactPropsType) => {
     const dispatch: AppDispatch = useDispatch()
     const { data: meData } = useMeQuery()
 
@@ -93,7 +97,10 @@ const Contact = ({ name, value }: ContactPropsType) => {
                 target="_blank"
                 rel="noreferrer noopener"
             />
-            <EditOutlined onClick={() => setEditMode(!editMode)} />
+            <EditOutlined
+                style={{ visibility: isOwner ? 'visible' : 'hidden' }}
+                onClick={() => setEditMode(!editMode)}
+            />
         </div>
     )
 }
