@@ -27,7 +27,7 @@ const UserPanel = () => {
     const { data } = useMeQuery()
     const userId = data?.data.id
     const [trigger, { data: profileData }] = useLazyGetOwnerProfileQuery()
-    const [isDropDownActive, setIsDropDownActive] = useState(true)
+    const [isDropDownActive, setIsDropDownActive] = useState(false)
 
     useEffect(() => {
         userId && trigger(userId.toString())

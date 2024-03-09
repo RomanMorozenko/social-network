@@ -1,4 +1,5 @@
 import { Outlet, useNavigate } from 'react-router-dom'
+import { InfinitySpin } from 'react-loader-spinner'
 
 import {
     UserOutlined,
@@ -13,7 +14,20 @@ export const UserLayout = () => {
     const navigate = useNavigate()
     const { isLoading } = useMeQuery()
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading)
+        return (
+            <div
+                style={{
+                    width: '100vw',
+                    height: '100vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    paddingTop: '40vh',
+                }}
+            >
+                <InfinitySpin width="200px" color="blue" />
+            </div>
+        )
 
     const handleNavMenuClick = (path: string) => {
         navigate(`/${path}`)

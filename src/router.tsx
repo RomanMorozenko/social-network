@@ -12,6 +12,7 @@ import { Chat } from './pages/chat'
 import { useMeQuery } from './services/auth/auth.service'
 import { Login } from './pages/login'
 import { Header } from './components/ui/header'
+import { InfinitySpin } from 'react-loader-spinner'
 
 const publicRoutes: RouteObject[] = [
     {
@@ -54,7 +55,20 @@ export const Router = () => {
 
     const isAuth = data?.resultCode === 0
 
-    if (isLoading) return <div>Loaaaaaaading...</div>
+    if (isLoading)
+        return (
+            <div
+                style={{
+                    width: '100vw',
+                    height: '100vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    paddingTop: '40vh',
+                }}
+            >
+                <InfinitySpin width="200px" color="blue" />
+            </div>
+        )
 
     return (
         <>
