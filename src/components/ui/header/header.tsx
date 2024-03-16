@@ -43,6 +43,11 @@ const UserPanel = () => {
         setIsDropDownActive(!isDropDownActive)
     }
 
+    const handleLogout = () => {
+        logout()
+        setIsDropDownActive(false)
+    }
+
     return (
         <div className={s.userPanel}>
             <img
@@ -52,10 +57,16 @@ const UserPanel = () => {
                 alt="user photo"
             />
             <p className={s.userName}>{userName}</p>
-            <div className={s.dropDown + ' ' + dropDownClass}>
+            <div
+                className={s.dropDown + ' ' + dropDownClass}
+                onBlur={() => {
+                    console.log('blur')
+                    setIsDropDownActive(false)
+                }}
+            >
                 <button
                     className={s.logout}
-                    onClick={() => logout()}
+                    onClick={handleLogout}
                     aria-label="logout"
                 >
                     logout

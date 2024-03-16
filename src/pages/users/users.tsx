@@ -8,6 +8,7 @@ import s from './users.module.scss'
 import { Pagination } from './pagination/pagination'
 import { useCallback, useEffect, useState } from 'react'
 import { UserCard } from './userCard'
+import { InfinitySpin } from 'react-loader-spinner'
 
 export const Users = () => {
     console.log('Users rendered ')
@@ -18,7 +19,7 @@ export const Users = () => {
     console.log(data)
 
     useEffect(() => {
-        console.log(useEffect)
+        console.log('useEffect')
         trigger({})
     }, [trigger])
 
@@ -62,6 +63,8 @@ export const Users = () => {
         }
     }
 
+    console.log(users)
+
     return (
         <div className={s.usersContainer}>
             <div className={s.searchBar}>
@@ -77,17 +80,23 @@ export const Users = () => {
                 <div className={s.dropDown}></div>
             </div>
             <div className={s.usersDisplay}>
-                {users?.map(
-                    (user: UserType) => (
-                        console.log('user rendered'),
-                        (
-                            <UserCard
-                                key={user.id}
-                                avatar={user.photos.small || ''}
-                                name={user.name}
-                                followed={user.followed}
-                                id={user.id}
-                            />
+                {!users?.length ? (
+                    <div>
+                        <InfinitySpin width="200px" color="grey" />
+                    </div>
+                ) : (
+                    users?.map(
+                        (user: UserType) => (
+                            console.log('user rendered'),
+                            (
+                                <UserCard
+                                    key={user.id}
+                                    avatar={user.photos.small || ''}
+                                    name={user.name}
+                                    followed={user.followed}
+                                    id={user.id}
+                                />
+                            )
                         )
                     )
                 )}
