@@ -12,12 +12,18 @@ import { useAppSelector } from '../../services/store'
 import { UserName } from './userName'
 import { UserStatus } from './userStatus'
 import { UserPhotoPanel } from './userPhotoPanel'
+import {
+    UserType,
+    useLazyGetUsersQuery,
+} from '../../services/users/users.service'
+import { UserCard } from '../users/userCard'
 
 export const Profile = () => {
     const [triggerUserProfile] = useLazyGetUserProfileQuery()
     const [triggerUserStatus, { data: statusData }] =
         useLazyGetUserStatusQuery()
     const { data: meData } = useMeQuery()
+    const [trigger, { data }] = useLazyGetUsersQuery({})
     const profileData = useAppSelector((state) => state.profileReducer)
     const ownerID = meData?.data.id
     const profileToShow = useParams().id || ownerID
@@ -26,12 +32,19 @@ export const Profile = () => {
     const isOwner = profileToShow === ownerID
 
     useEffect(() => {
+        trigger({ friend: true })
+    }, [trigger])
+
+    useEffect(() => {
         profileToShow && triggerUserProfile(profileToShow.toString())
         profileToShow && triggerUserStatus(profileToShow.toString())
     }, [triggerUserProfile, triggerUserStatus, profileToShow])
+
     useEffect(() => {
         profileData && setCurrentUserProfile(profileData)
     }, [profileData])
+
+    const friends = data?.items
 
     if (!currentUserProfile) return null
 
@@ -65,6 +78,19 @@ export const Profile = () => {
                 statusData={statusData}
                 profileToShow={profileToShow}
             />
+            <div className={s.friendsContainer}>
+                {friends?.map((fr: UserType) => {
+                    return (
+                        <UserCard
+                            key={fr.id}
+                            avatar={fr.photos.small || ''}
+                            name={fr.name}
+                            followed={fr.followed}
+                            id={fr.id}
+                        />
+                    )
+                })}
+            </div>
         </div>
     )
 }

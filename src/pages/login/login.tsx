@@ -1,5 +1,3 @@
-import { loginPageImage } from '../../assets/images/loginPageImage'
-
 import s from './login.module.scss'
 
 import { Toast } from '../../components/ui/toast'
@@ -8,9 +6,9 @@ import { CaptchaModal } from './captchaModal'
 import { useState } from 'react'
 import { useMeQuery } from '../../services/auth/auth.service'
 import { Navigate } from 'react-router'
+import { MainImage } from '../../assets/images/MainImage'
 
 export const Login = () => {
-    console.log('login rendered')
     const [isCaptchaModalActive, setIsCaptchaModalActive] = useState(false)
     const [captchaValue, setCaptchaValue] = useState('')
     const [captchaUrl, setCaptchaUrl] = useState('')
@@ -25,7 +23,7 @@ export const Login = () => {
 
     return (
         <div className={s.loginContainer}>
-            <img src={loginPageImage} className={s.loginPageImage} />
+            <MainImage />
             <LoginForm
                 captchaValue={captchaValue}
                 setIsCaptchaModalActive={setIsCaptchaModalActive}

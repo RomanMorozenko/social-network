@@ -10,10 +10,16 @@ type PaginationProps = {
     className?: string
     onClick: (count: number, page: number) => void
     totalUsersCount: number
+    setShowFriends: (value: boolean) => void
 }
 
 export const Pagination = memo(
-    ({ onClick, totalUsersCount, className }: PaginationProps) => {
+    ({
+        onClick,
+        totalUsersCount,
+        className,
+        setShowFriends,
+    }: PaginationProps) => {
         console.log('pagination rendered')
 
         const [activePage, setActivePage] = useState<number>(1)
@@ -45,6 +51,8 @@ export const Pagination = memo(
         }
 
         const onSelectValueChange = (value: string) => {
+            console.log('onSelectValueChange')
+            setShowFriends(false)
             setPageSize(+value)
             setActivePage(1)
             onClick(+value, 1)

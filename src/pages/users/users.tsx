@@ -53,7 +53,7 @@ export const Users = () => {
         setDebounceTimer(newTimer)
     }
 
-    const onChange = () => {
+    const handleShowFriendsOnly = () => {
         if (!showFriends) {
             setShowFriends(true)
             trigger({ friend: true })
@@ -69,13 +69,19 @@ export const Users = () => {
         <div className={s.usersContainer}>
             <div className={s.searchBar}>
                 <h2>Users</h2>
-                <Checkbox onChange={onChange}>Show friends only</Checkbox>
+                <Checkbox
+                    onChange={handleShowFriendsOnly}
+                    checked={showFriends}
+                >
+                    Show friends only
+                </Checkbox>
                 <Input value={inputValue} setValue={handleInputValueChange} />
             </div>
             <div className={s.pageControlPanel}>
                 <Pagination
                     totalUsersCount={totalUsersCount || 0}
                     onClick={handlePageClick}
+                    setShowFriends={setShowFriends}
                 />
                 <div className={s.dropDown}></div>
             </div>
