@@ -7,6 +7,7 @@ import s from './header.module.scss'
 import { defaultAva } from '../../../assets/images/defaultAva'
 import { useLazyGetOwnerProfileQuery } from '../../../services/profile/profile.service'
 import { useEffect, useState } from 'react'
+import { Logo } from '../../../assets/images/Logo'
 
 const { Header: AntHeader } = AntLayout
 
@@ -17,6 +18,7 @@ type HeaderPropsType = {
 export const Header = ({ isAuth }: HeaderPropsType) => {
     return (
         <AntHeader style={{ display: 'flex', alignItems: 'center' }}>
+            <Logo />
             {isAuth && <UserPanel />}
         </AntHeader>
     )

@@ -1,15 +1,16 @@
 .loginForm {
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 30vw;
 }
 
 .formItem {
-    width: 100%;
+    width: 30vw;
     display: flex;
     justify-content: space-between;
 }
 
 .input {
     margin-bottom: 5px;
+    width: 30vw;
 }

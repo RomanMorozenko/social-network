@@ -17,7 +17,10 @@ import { useLogInMutation } from '../../../services/auth/auth.service'
 
 const loginSchema = z.object({
     email: z.string().trim().email('Please enter a valid email'),
-    password: z.string().trim().min(3, 'Password mus be at least 3 characters'),
+    password: z
+        .string()
+        .trim()
+        .min(3, 'Password must be at least 3 characters'),
     rememberMe: z.boolean().optional().default(false),
 })
 
@@ -89,6 +92,7 @@ export const LoginForm = ({
                 name="email"
                 label="Email"
                 valuePropName="text"
+                className={s.formItem}
             >
                 <Input
                     name="email"
@@ -103,6 +107,7 @@ export const LoginForm = ({
                 name="password"
                 label="Password"
                 valuePropName="text"
+                className={s.formItem}
             >
                 <Input
                     name="password"
@@ -117,10 +122,15 @@ export const LoginForm = ({
                 name="rememberMe"
                 label="Remember me"
                 valuePropName="checked"
+                className={s.formItem}
             >
                 <Checkbox type="checkbox" />
             </FormItem>
-            <Button type="primary" htmlType="submit">
+            <Button
+                style={{ backgroundColor: '#001529' }}
+                type="primary"
+                htmlType="submit"
+            >
                 Login
             </Button>
         </form>

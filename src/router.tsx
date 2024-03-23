@@ -13,6 +13,7 @@ import { useMeQuery } from './services/auth/auth.service'
 import { Login } from './pages/login'
 import { Header } from './components/ui/header'
 import { InfinitySpin } from 'react-loader-spinner'
+import { ErrorPage } from './pages/error'
 
 const publicRoutes: RouteObject[] = [
     {
@@ -45,6 +46,10 @@ const privateRoutes: RouteObject[] = [
             {
                 path: '/chat',
                 element: <Chat />,
+            },
+            {
+                path: '*',
+                element: <ErrorPage />,
             },
         ],
     },
