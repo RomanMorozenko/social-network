@@ -96,6 +96,7 @@ export const Users = () => {
                             console.log('user rendered'),
                             (
                                 <UserCard
+                                    page="users"
                                     key={user.id}
                                     avatar={user.photos.small || ''}
                                     name={user.name}

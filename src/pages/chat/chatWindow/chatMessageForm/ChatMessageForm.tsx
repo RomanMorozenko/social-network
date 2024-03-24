@@ -10,6 +10,7 @@ export const ChatMessageForm = () => {
     const [send] = useSendMutation()
 
     const sendMessageHandler = () => {
+        if (!newMessage) return
         send(newMessage)
         setNewMessage('')
     }

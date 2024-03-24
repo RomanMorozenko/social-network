@@ -79,17 +79,20 @@ export const Profile = () => {
                 profileToShow={profileToShow}
             />
             <div className={s.friendsContainer}>
-                {friends?.map((fr: UserType) => {
-                    return (
-                        <UserCard
-                            key={fr.id}
-                            avatar={fr.photos.small || ''}
-                            name={fr.name}
-                            followed={fr.followed}
-                            id={fr.id}
-                        />
-                    )
-                })}
+                {isOwner &&
+                    friends?.map((fr: UserType) => {
+                        return (
+                            <UserCard
+                                key={fr.id}
+                                page="profile"
+                                avatar={fr.photos.small || ''}
+                                name={fr.name}
+                                followed={fr.followed}
+                                id={fr.id}
+                            />
+                        )
+                    })}
+                {!isOwner && <div>You can't see who other users follow.</div>}
             </div>
         </div>
     )

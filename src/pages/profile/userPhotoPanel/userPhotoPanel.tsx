@@ -14,19 +14,18 @@ export const UserPhotoPanel = ({ photo, isOwner }: UserPhotoPanel) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+        console.log('handleUpload')
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
             const formData = new FormData()
 
             file && formData.append('avatar', file)
-
-            // setIsAvatarUpdating(true)
             await updatePhoto(formData)
-            // setIsAvatarUpdating(false)
         }
     }
 
     const handleUpdateImageClick = () => {
+        console.log(inputRef.current)
         inputRef && inputRef.current?.click()
     }
 

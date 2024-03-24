@@ -11,11 +11,18 @@ type UserCardPropsType = {
     name: string
     followed: boolean
     id: number
+    page: 'profile' | 'users'
 }
 
 const defaultAvatar = '../src/assets/images/anonym.jpeg'
 
-export const UserCard = ({ avatar, name, followed, id }: UserCardPropsType) => {
+export const UserCard = ({
+    avatar,
+    name,
+    followed,
+    id,
+    page,
+}: UserCardPropsType) => {
     const [followUser] = useFollowUserMutation()
     const [unfollowUser] = useUnfollowUserMutation()
 
@@ -27,8 +34,10 @@ export const UserCard = ({ avatar, name, followed, id }: UserCardPropsType) => {
         }
     }
 
+    const cardClassName = page === 'users' ? s.userCardUsers : s.userCardProfile
+
     return (
-        <div className={s.userCard}>
+        <div className={cardClassName}>
             <Link className={s.avatarContainer} to={`/profile/${id}`}>
                 <img
                     src={avatar || defaultAvatar}
@@ -37,11 +46,12 @@ export const UserCard = ({ avatar, name, followed, id }: UserCardPropsType) => {
                 />
             </Link>
             <Link className={s.nameConrainer} to={`/profile/${id}`}>
-                <div className={s.name}>{name}</div>
+                {name}
             </Link>
             <div className={s.buttonContainer}>
                 <Button
                     type="primary"
+                    style={{ backgroundColor: '#001529' }}
                     block
                     onClick={() => handleFollowUnfollow(followed, id)}
                 >
